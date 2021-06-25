@@ -1,0 +1,4 @@
+FROM openjdk:14
+COPY target/menu-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 9744
+ENTRYPOINT java -jar ./app.jar

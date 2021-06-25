@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menuservicedeployment
+spec:
+  selector:
+    matchLabels:
+      app: menuservice
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: menuservice
+    spec:
+      containers:
+      - image: us.icr.io/ellacrnmsp/menuservice:1.0
+        name: menuservice
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9744
+      restartPolicy: Always
+      volumes:
+      - name: menuvolume
+        configMap:
+          name: menucm
+          items:
+          - key: application.properties 
+            path: application.properties
